@@ -75,26 +75,36 @@ class HomeScreen extends CoreScreen<HomeViewModel> {
 }
 ```
 
-Also your ``ViewModel`` class should be extends from ``CoreViewModel``. You will able to use ``update();`` or ``Rx<T>`` data state.
+Also your ``ViewModel`` class should be extends from ``CoreViewModel``. You will able to use ``update();`` or ``Collectable<T>`` data state.
 ```dart
 class HomeViewModel extends CoreViewModel
 ```
 
 ### 3. Observe Data
 ```dart
-var favorite = 0.obs;
+// in ViewModel
+Collectable<int> favorite = Collectable(0);
 
-favorite += 1;
+// do operation
+favorite.value += 1;
+
+// in Screen
+Collect(() => Text('Total favorites: ${viewModel.favorite}'))
 
 // OR
 
+// in ViewModel
 var favorite = 0;
 
+// do operation
 favorite += 1;
 update();
-```
-```dart
-Collect(() => Text('Total favorites: ${viewModel.favorite}'))
+
+// in Screen
+
+CollectBuilder<HomeViewModel>(
+  builder: (viewModel) => Text('Total favorites: ${viewModel.favorite}')
+)
 ```
 
 ## Additional information

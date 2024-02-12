@@ -4,11 +4,7 @@ import 'package:get/get.dart';
 class CoreViewModel extends GetxController {
   final CoreDialogViewModel _dialogViewModel = Get.put(CoreDialogViewModel());
 
-  showLoadingDialog(String message) async {
-    _dialogViewModel.showLoading(message);
-  }
-
-  showMessageDialog(String message) async {
-    _dialogViewModel.showMessage(message);
+  showDialog({required String message, bool loading = false}) async {
+    _dialogViewModel.showDialog(message, loading);
   }
 }
