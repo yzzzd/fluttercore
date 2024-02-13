@@ -5,17 +5,21 @@ part 'api_response.g.dart';
 
 @JsonSerializable()
 class ApiResponse {
-  @JsonKey(name: 'status')
-  final int status;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  int code = ApiCode.success;
   @JsonKey(name: 'message')
   final String message;
 
-  ApiResponse(this.status, this.message);
+  ApiResponse(this.message);
 
-  bool successed() => status == ApiCode.success;
-  bool unauthorized() => status == ApiCode.unauthorized;
+  bool successed() => code == ApiCode.success;
+  bool unauthorized() => code == ApiCode.unauthorized;
 
   factory ApiResponse.fromJson(Map<String, dynamic> json) => _$ApiResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApiResponseToJson(this);
+
+  /* factory ApiResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$ApiResponseFromJson(json, fromJsonT); */
+
+  /* Map<String, dynamic> toJson(Object Function(T value) toJsonT) => _$ApiResponseToJson(this, toJsonT); */
 }

@@ -7,4 +7,6 @@ class CoreViewModel extends GetxController {
   showDialog({required String message, bool loading = false}) async {
     _dialogViewModel.showDialog(message, loading);
   }
+
+  dismissDialog() => _dialogViewModel.dismiss();
 }

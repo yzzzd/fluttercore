@@ -101,7 +101,6 @@ favorite += 1;
 update();
 
 // in Screen
-
 CollectBuilder<HomeViewModel>(
   builder: (viewModel) => Text('Total favorites: ${viewModel.favorite}')
 )

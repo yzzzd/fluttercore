@@ -18,17 +18,20 @@ class ApiObserver {
   static run<T extends ApiResponse>({required Function() api, required Function(T response) onSuccess, required Function(ApiResponse response) onError}) async {
     try {
       final response = await api();
+      response.status = ApiCode.success;
       onSuccess(response);
     } on DioException catch (e) {
       final ApiResponse response;
       if (e.response?.statusCode == ApiCode.error) {
-        response = ApiResponse(ApiCode.error, '${e.response?.data}');
+        response = ApiResponse('${e.response?.data}');
       } else {
         response = ApiResponse.fromJson(e.response?.data);
       }
+      response.code = e.response?.statusCode ?? ApiCode.error;
       onError(response);
     } catch (e) {
-      final response = ApiResponse(ApiCode.error, '$e');
+      final response = ApiResponse('$e');
+      response.code = ApiCode.error;
       onError(response);
     }
   }

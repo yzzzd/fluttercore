@@ -8,7 +8,7 @@ abstract class CoreApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: initialTheme(),
       initialBinding: initialBinding(),
       home: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1)),
@@ -22,4 +22,7 @@ abstract class CoreApp extends StatelessWidget {
 
   @protected
   Bindings initialBinding();
+
+  @protected
+  ThemeData initialTheme() => ThemeData(useMaterial3: true);
 }
