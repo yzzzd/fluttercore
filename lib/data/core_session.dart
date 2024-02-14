@@ -23,6 +23,11 @@ class CoreSession {
     return _prefs?.get(key) as T?;
   }
 
+  clear() async {
+    await initSession();
+    await _prefs?.clear();
+  }
+
   initSession() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
