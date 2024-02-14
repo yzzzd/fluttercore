@@ -18,7 +18,7 @@ class ApiObserver {
   static run<T extends ApiResponse>({required Function() api, required Function(T response) onSuccess, required Function(ApiResponse response) onError}) async {
     try {
       final response = await api();
-      response.status = ApiCode.success;
+      response.code = ApiCode.success;
       onSuccess(response);
     } on DioException catch (e) {
       final ApiResponse response;
