@@ -25,7 +25,11 @@ class ApiObserver {
       if (e.response?.statusCode == ApiCode.error) {
         response = ApiResponse('${e.response?.data}');
       } else {
-        response = ApiResponse.fromJson(e.response?.data);
+        if (e.response?.data == null) {
+          response = ApiResponse('${e.response?.data}');
+        } else {
+          response = ApiResponse.fromJson(e.response?.data);
+        }
       }
       response.code = e.response?.statusCode ?? ApiCode.error;
       onError(response);
