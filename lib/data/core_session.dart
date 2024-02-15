@@ -1,3 +1,4 @@
+import 'package:flutter_core/utils/aes_encryption_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreSession {
@@ -8,7 +9,8 @@ class CoreSession {
     await initSession();
 
     if (value is String) {
-      await _prefs?.setString(key, value);
+      final _value = AESEncryptionHelper.encrypt(value);
+      await _prefs?.setString(key, _value);
     } else if (value is bool) {
       await _prefs?.setBool(key, value);
     } else if (value is double) {
@@ -20,7 +22,17 @@ class CoreSession {
 
   Future<T?> read<T>(String key) async {
     await initSession();
-    return _prefs?.get(key) as T?;
+    final value = _prefs?.get(key) as T?;
+    if (value is String) {
+      return AESEncryptionHelper.decrypt(value) as T;
+    } else {
+      return value;
+    }
+  }
+
+  clear() async {
+    await initSession();
+    await _prefs?.clear();
   }
 
   initSession() async {

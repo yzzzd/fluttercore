@@ -5,14 +5,8 @@ class CoreDialogViewModel extends GetxController {
   var coreDialogLoading = false.obs;
   var coreDialodMessage = ''.obs;
 
-  showLoading(String message) {
-    coreDialogLoading.value = true;
-    coreDialodMessage.value = message;
-    _showDialog();
-  }
-
-  showMessage(String message) {
-    coreDialogLoading.value = false;
+  showDialog(String message, bool loading) {
+    coreDialogLoading.value = loading;
     coreDialodMessage.value = message;
     _showDialog();
   }

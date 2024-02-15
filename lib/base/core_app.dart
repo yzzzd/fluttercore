@@ -8,8 +8,9 @@ abstract class CoreApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: initialTheme(),
       initialBinding: initialBinding(),
+      getPages: getPages(),
       home: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1)),
         child: initialScreen()
@@ -22,4 +23,10 @@ abstract class CoreApp extends StatelessWidget {
 
   @protected
   Bindings initialBinding();
+  
+  @protected
+  List<GetPage> getPages();
+
+  @protected
+  ThemeData initialTheme() => ThemeData(useMaterial3: true);
 }
