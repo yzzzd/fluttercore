@@ -9,8 +9,8 @@ class CoreSession {
     await initSession();
 
     if (value is String) {
-      final _value = AESEncryptionHelper.encrypt(value);
-      await _prefs?.setString(key, _value);
+      final encryptedValue = AESEncryptionHelper.encrypt(value);
+      await _prefs?.setString(key, encryptedValue);
     } else if (value is bool) {
       await _prefs?.setBool(key, value);
     } else if (value is double) {

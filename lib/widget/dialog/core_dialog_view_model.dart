@@ -13,12 +13,12 @@ class CoreDialogViewModel extends GetxController {
 
   _showDialog() {
     if (Get.isDialogOpen == false) {
-      Get.dialog(CoreDialog(), barrierDismissible: false);
+      Get.dialog(const CoreDialog(), barrierDismissible: false);
     }
   }
 
   dismiss() {
-    if (Get.isDialogOpen == true && coreDialogLoading == false) {
+    if (Get.isDialogOpen == true && coreDialogLoading.value == false) {
       Get.back();
     }
   }
