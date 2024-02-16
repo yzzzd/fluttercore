@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-# FlutterCore ``2.beta (lite version)``
+# FlutterCore ``2.beta`` (lite version)
 
 FlutterCore make you get the most rapid development.
 
@@ -21,7 +21,7 @@ FlutterCore make you get the most rapid development.
 - Simplify API Callback
 - Get Lifecycle
 - Helper & Utilities
-- Suggest more... lets [contribute](https://github.com/yzzzd/fluttercore/fork)
+- Suggest more... lets [contribute](https://github.com/yzzzd/fluttercore/fork)!
 
 ## Changelog
 
@@ -106,7 +106,7 @@ CollectBuilder<HomeViewModel>(
 ```
 ### 4. Route Management
 
-With wrap with ``CoreApp`` before, then define the routes in ``getPages()`` override.
+With wrapping ``CoreApp`` before, then define the routes in ``getPages()`` override.
 
 ```dart
 @override
