@@ -7,7 +7,7 @@ part 'api_response.g.dart';
 class ApiResponse extends CoreApiResponse {
 
   @JsonKey(name: 'message')
-  final String message;
+  String message;
 
   ApiResponse(this.message);
 
