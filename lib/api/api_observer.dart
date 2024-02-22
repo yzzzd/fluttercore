@@ -5,33 +5,17 @@ import 'package:flutter_core/api/api_response.dart';
 import 'package:flutter_core/api/core_api_response.dart';
 
 class ApiObserver {
-  /* static Future<T> run1<T extends ApiResponse>(Function() api) async {
-    var response;
-    try {
-      response = await api();
-    } on DioException catch (e) {
-      //response = ApiResponse.fromJson(e.response?.data);
-    } catch (e) {
-      response = ApiResponse(500, '$e');
-    }
-    return response;
-  } */
-
   static run<T extends CoreApiResponse>({required Function() api, required Function(T response) onSuccess, required Function(ApiResponse response) onError}) async {
     try {
       final response = await api();
       response.code = ApiCode.success;
       onSuccess(response);
     } on DioException catch (e) {
-      final ApiResponse response;
-      if (e.response?.statusCode == ApiCode.error) {
-        response = ApiResponse('${e.response?.data}');
+      final response = ApiResponse('');
+      if (e.response?.data == null) {
+        response.message = '${e.message}';
       } else {
-        if (e.response?.data == null) {
-          response = ApiResponse('${e.response?.data}');
-        } else {
-          response = ApiResponse.fromJson(e.response?.data);
-        }
+        response.message = '${e.response?.data['message']}';
       }
       response.code = e.response?.statusCode ?? ApiCode.error;
       onError(response);
@@ -39,6 +23,28 @@ class ApiObserver {
       final response = ApiResponse('$e');
       response.code = ApiCode.error;
       onError(response);
+    }
+  }
+
+  static Future<T> runInline<T extends ApiResponse>({required Function() api, required T Function() creator}) async {
+    try {
+      final response = await api();
+      response.code = ApiCode.success;
+      return response;
+    } on DioException catch (e) {
+      final response = creator();
+      if (e.response?.data == null) {
+        response.message = '${e.message}';
+      } else {
+        response.message = '${e.response?.data['message']}';
+      }
+      response.code = e.response?.statusCode ?? ApiCode.error;
+      return response;
+    } catch (e) {
+      final response = creator();
+      response.code = ApiCode.error;
+      response.message = '$e';
+      return response;
     }
   }
 
