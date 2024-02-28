@@ -104,6 +104,20 @@ CollectBuilder<HomeViewModel>(
   builder: (viewModel) => Text('Total favorites: ${viewModel.favorite}')
 )
 ```
+
+#### for ``List`` data
+
+```dart
+// use CollectableList
+CollectableList<Fruit> fruits = CollectableList([]);
+
+// then you need call refresh() if you change value of Fruit / not the list
+fruits[index].flavour = 'Sweet';
+fruits.refresh();
+
+// or you don't need to call refresh(), but you should use List data and call update(), then use Builder to update the Screen.
+```
+
 ### 4. Route Management
 
 With wrapping ``CoreApp`` before, then define the routes in ``getPages()`` override.
