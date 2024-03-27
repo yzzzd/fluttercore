@@ -5,7 +5,7 @@ import 'package:flutter_core/api/api_response.dart';
 import 'package:flutter_core/api/core_api_response.dart';
 
 class ApiObserver {
-  static run<T extends CoreApiResponse>({required Function() api, required Function(T response) onSuccess, required Function(ApiResponse response) onError}) async {
+  static withCallback<T extends CoreApiResponse>({required Function() api, required Function(T response) onSuccess, required Function(ApiResponse response) onError}) async {
     try {
       final response = await api();
       response.code = ApiCode.success;
@@ -26,7 +26,7 @@ class ApiObserver {
     }
   }
 
-  static Future<T> runInline<T extends ApiResponse>({required Function() api, required T Function() creator}) async {
+  static Future<T> withFuture<T extends ApiResponse>({required Function() api, required T Function() creator}) async {
     try {
       final response = await api();
       response.code = ApiCode.success;
@@ -48,7 +48,7 @@ class ApiObserver {
     }
   }
 
-  static runWithData({required Function() api, required Function(ApiDataResponse response) onSuccess, required Function(ApiDataResponse response) onError}) async {
+  static withDataCallback({required Function() api, required Function(ApiDataResponse response) onSuccess, required Function(ApiDataResponse response) onError}) async {
     try {
       final response = await api();
       response.code = ApiCode.success;
@@ -69,7 +69,7 @@ class ApiObserver {
     }
   }
 
-  static Future<ApiDataResponse> runInlineData({required Function() api}) async {
+  static Future<ApiDataResponse> withDataFuture({required Function() api}) async {
     try {
       final response = await api();
       response.code = ApiCode.success;
