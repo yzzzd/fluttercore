@@ -5,6 +5,6 @@ class CoreApiResponse {
   @JsonKey(includeFromJson: false, includeToJson: false)
   int code = ApiCode.success;
 
-  bool successed() => code == ApiCode.success;
-  bool unauthorized() => code == ApiCode.unauthorized;
+  bool get isSuccessful => code == ApiCode.success;
+  bool get unauthorized => code == ApiCode.unauthorized;
 }

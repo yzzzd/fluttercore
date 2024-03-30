@@ -28,6 +28,7 @@ Future<ApiDataResponse<User>> login(
 
 ```dart
 final response = await ApiObserver.runInlineData(api: () => _apiService.login(username, password));
+
 if (response.successed()) {
     // TODO: something.
 } else {
