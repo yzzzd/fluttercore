@@ -36,7 +36,7 @@ dependencies:
   flutter_core:
     git:
       url: https://github.com/yzzzd/fluttercore.git
-      ref: beta
+      ref: {latest_release}
 ```
 
 ## Usage
@@ -163,6 +163,7 @@ Get.offAllNamed('/LoginScreen');
 ```
 
 ### 5. API Call
+_\*MAY DEPRECATED\* So please refer from CHANGELOG for latest way_
 
 ### Prepare your ``Response``
 
