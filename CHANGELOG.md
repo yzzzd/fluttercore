@@ -1,6 +1,22 @@
-## 2.0.0 (2024-02)
+## 2.0.2 (2024-03)
 
-* Just starter for version 2.0.0 beta, included in README file
+Refactoring function on ``ApiObserver``
+
+### ``run()`` with callback ie: onSuccess(), onError().
+```dart
+ApiObserver.withCalback()
+ApiObserver.withDataCalback()
+```
+
+### ``runInline()`` become ``withFuture()``
+```dart
+final response = await ApiObserver.withFuture<LoginResponse>(api: () => _apiService.login(username, password), creator: () => LoginResponse('', null));
+```
+
+### ``runInlineData()`` become ``withDataFuture()``
+```dart
+final response = await ApiObserver.withDataFuture(api: () => _apiService.login(username, password));
+```
 
 ## 2.0.1 (2024-02)
 
@@ -35,3 +51,7 @@ if (response.successed()) {
     // TODO: something else.
 }
 ```
+
+## 2.0.0 (2024-02)
+
+* Just starter for version 2.0.0 beta, included in README file
