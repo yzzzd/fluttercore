@@ -63,7 +63,13 @@ class HomeScreen extends CoreScreen<HomeViewModel> {
                 child: Image.network(
                   news.image ?? '', 
                   fit: BoxFit.cover, 
-                  errorBuilder: (c, e, s) => Container(color: Colors.grey, child: const Icon(Icons.image_not_supported_outlined, color: Colors.white,))
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Container(padding: const EdgeInsets.all(24), child: const CircularProgressIndicator());
+                  },
+                  errorBuilder: (context, error, stackTrace) => Container(color: Colors.grey, child: const Icon(Icons.image_not_supported_outlined, color: Colors.white))
                 )
               ),
               const Gap(12),

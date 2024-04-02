@@ -4,7 +4,6 @@ import 'package:flutter_core/core.dart';
 import 'package:flutter_core/data/collectable.dart';
 import 'package:flutter_core/data/core_session.dart';
 import 'package:example/core/data/model/news/news.dart';
-import 'package:example/core/data/model/news/news_response.dart';
 import 'package:example/core/data/model/user/user.dart';
 import 'package:example/core/data/source/api/api_service.dart';
 import 'package:example/core/data/source/local/dao/user_dao.dart';
@@ -34,8 +33,9 @@ class HomeViewModel extends CoreViewModel {
 
   _getNews() {
     newsLoading.value = true;
-    ApiObserver.run<NewsResponse>(
-      api: () => _apiService.news(),
+
+    ApiObserver.withCallback(
+      api: () => _apiService.news(), 
       onSuccess: (response) {
         newsLoading.value = false;
         news.value = response.data;

@@ -19,7 +19,7 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<LoginResponse> login(
+  Future<ApiResponse<User>> login(
     String username,
     String password,
   ) async {
@@ -31,7 +31,7 @@ class _ApiService implements ApiService {
       'password': password,
     };
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<LoginResponse>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse<User>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -47,18 +47,21 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = LoginResponse.fromJson(_result.data!);
+    final value = ApiResponse<User>.fromJson(
+      _result.data!,
+      (json) => User.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 
   @override
-  Future<NewsResponse> news() async {
+  Future<ApiResponse<List<News>>> news() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<NewsResponse>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ApiResponse<List<News>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -74,7 +77,14 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = NewsResponse.fromJson(_result.data!);
+    final value = ApiResponse<List<News>>.fromJson(
+      _result.data!,
+      (json) => json is List<dynamic>
+          ? json
+              .map<News>((i) => News.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
+    );
     return value;
   }
 
