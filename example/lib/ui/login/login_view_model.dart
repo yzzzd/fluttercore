@@ -42,7 +42,7 @@ class LoginViewModel extends CoreViewModel {
     if (response.isSuccessful) {
       _loginSuccess(response.data);
     } else {
-      showDialog(message: response.message);
+      showDialog(message: response.message ?? '');
     }
   }
 
