@@ -6,7 +6,7 @@ part 'api_response.g.dart';
 @JsonSerializable(genericArgumentFactories: true, fieldRename: FieldRename.snake)
 class ApiResponse<T> extends CoreApiResponse {
   
-  final String message;
+  final String? message;
   final T? data;
 
   ApiResponse(this.message, this.data);
