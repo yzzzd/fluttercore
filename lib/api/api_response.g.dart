@@ -11,7 +11,7 @@ ApiResponse<T> _$ApiResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     ApiResponse<T>(
-      json['message'] as String,
+      json['message'] as String?,
       _$nullableGenericFromJson(json['data'], fromJsonT),
     );
 
