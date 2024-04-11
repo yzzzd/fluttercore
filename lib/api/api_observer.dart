@@ -4,45 +4,39 @@ import 'package:flutter_core/api/api_response.dart';
 
 class ApiObserver {
 
-  static withCallback({required Function() api, required Function(ApiResponse response) onSuccess, required Function(ApiResponse response) onError}) async {
+  static withCallback<T>({required Future<ApiResponse<T>> Function() api, required Function(ApiResponse<T> response) onSuccess, required Function(ApiResponse<T?> response) onError}) async {
     try {
-      final response = await api();
-      response.code = ApiCode.success;
+      final response = await api()..code = ApiCode.success;
       onSuccess(response);
     } on DioException catch (e) {
-      final ApiResponse response;
+      final ApiResponse<T?> response;
       if (e.response?.data == null) {
-          response = ApiResponse('null', null);
+          response = ApiResponse(e.response?.statusMessage, null);
         } else {
           response = ApiResponse.fromJson(e.response?.data, (data) => null);
         }
       response.code = e.response?.statusCode ?? ApiCode.error;
       onError(response);
     } catch (e) {
-      final response = ApiResponse('$e', null);
-      response.code = ApiCode.error;
+      final response = ApiResponse(e.toString(), null)..code = ApiCode.error;
       onError(response);
     }
   }
 
-  static Future<ApiResponse> withFuture({required Function() api}) async {
+  static Future<ApiResponse<T?>> withFuture<T>({required Future<ApiResponse<T>> Function() api}) async {
     try {
-      final response = await api();
-      response.code = ApiCode.success;
-      return response;
+      return await api()..code = ApiCode.success;
     } on DioException catch (e) {
-      final ApiResponse response;
+      final ApiResponse<T?> response;
       if (e.response?.data == null) {
-          response = ApiResponse('null', null);
-        } else {
-          response = ApiResponse.fromJson(e.response?.data, (data) => null);
-        }
+        response = ApiResponse<T>(e.response?.statusMessage, null);
+      } else {
+        response = ApiResponse.fromJson(e.response?.data, (data) => null);
+      }
       response.code = e.response?.statusCode ?? ApiCode.error;
       return response;
     } catch (e) {
-      final response = ApiResponse('$e', null);
-      response.code = ApiCode.error;
-      return response;
+      return ApiResponse<T>(e.toString(), null)..code = ApiCode.error;
     }
   }
 }
