@@ -1,3 +1,4 @@
+import 'package:example/core/data/model/user/user.dart';
 import 'package:flutter_core/base/viewmodel/core_view_model.dart';
 import 'package:flutter_core/core.dart';
 import 'package:flutter_core/data/collectable.dart';
@@ -14,14 +15,14 @@ class WelcomeViewModel extends CoreViewModel {
 
   final Collectable<String> lastOpen = Collectable('');
 
-  _checkLogin() {
-    _userDao.getLoginUser().then((user) {
-      if (user == null) {
-        Get.offNamed(LoginScreen.routeName);
-      } else {
-        Get.offNamed(HomeScreen.routeName);
-      }
-    });
+  _checkLogin() async {
+    User? user = await _userDao.getLoginUser();
+
+    if (user == null) {
+      Get.offNamed(LoginScreen.routeName);
+    } else {
+      Get.offNamed(HomeScreen.routeName);
+    }
   }
 
   _checkLastOpen() async {

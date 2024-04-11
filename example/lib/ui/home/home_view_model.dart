@@ -19,10 +19,8 @@ class HomeViewModel extends CoreViewModel {
   final Collectable<List<News>> news = Collectable(List.empty());
   final Collectable<bool> newsLoading = Collectable(false);
 
-  _checkLogin() {
-    _userDao.getLoginUser().then((user) {
-      this.user.value = user;
-    });
+  _checkLogin() async {
+    user.value = await _userDao.getLoginUser();
   }
 
   logout() async {
@@ -38,7 +36,7 @@ class HomeViewModel extends CoreViewModel {
       api: () => _apiService.news(), 
       onSuccess: (response) {
         newsLoading.value = false;
-        news.value = response.data;
+        news.value = response.data!;
       }, 
       onError: (response) {
         newsLoading.value = false;

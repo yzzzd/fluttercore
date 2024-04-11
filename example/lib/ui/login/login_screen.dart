@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_core/base/screen/core_screen.dart';
 import 'package:flutter_core/core.dart';
 import 'package:example/ui/login/login_view_model.dart';
+import 'package:flutter_core/widget/collect/collect.dart';
 
 class LoginScreen extends CoreScreen<LoginViewModel> {
   const LoginScreen({super.key});
@@ -34,17 +35,22 @@ class LoginScreen extends CoreScreen<LoginViewModel> {
               ),
             ),
             const Gap(16),
-            TextFormField(
+            Collect(() {
+              return TextFormField(
               controller: passwordController,
-              obscureText: true,
+              obscureText: viewModel.obscurePassword.value,
               textInputAction: TextInputAction.done,
               style: const TextStyle(fontSize: 14),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(16),
                 hintText: 'Password',
+                suffixIcon: IconButton(onPressed: () {
+                  viewModel.obscurePassword.value = !viewModel.obscurePassword.value;
+                }, icon: Icon(_togglePassword(viewModel.obscurePassword.value))),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16))
               ),
-            ),
+            );
+            }),
             const Gap(16),
             SizedBox(
               width: double.infinity,
@@ -58,5 +64,12 @@ class LoginScreen extends CoreScreen<LoginViewModel> {
         ),
       ),
     );
+  }
+
+  IconData _togglePassword(bool show) {
+    if (show) {
+      return Icons.visibility_outlined;
+    }
+    return Icons.visibility_off_outlined;
   }
 }

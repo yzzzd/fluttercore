@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/base/core_app.dart';
 import 'package:flutter_core/core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:example/core/di/app_binding.dart';
 import 'package:example/core/di/app_module.dart';
 import 'package:example/ui/home/home_screen.dart';
@@ -13,7 +12,6 @@ import 'package:example/ui/welcome/welcome_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppModule.initService();
-  await dotenv.load(fileName: ".env");
   runApp(const App());
 }
 

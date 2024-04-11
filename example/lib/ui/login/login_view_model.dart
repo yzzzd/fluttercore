@@ -5,11 +5,14 @@ import 'package:flutter_core/core.dart';
 import 'package:example/core/data/source/api/api_service.dart';
 import 'package:example/core/data/source/local/dao/user_dao.dart';
 import 'package:example/ui/home/home_screen.dart';
+import 'package:flutter_core/data/collectable.dart';
 
 class LoginViewModel extends CoreViewModel {
   
   final ApiService _apiService = Get.find();
   final UserDao _userDao = Get.find();
+
+  var obscurePassword = Collectable(true);
 
   login(String username, String password) async {
     showDialog(message: 'Logging in...', loading: true);
@@ -39,6 +42,7 @@ class LoginViewModel extends CoreViewModel {
     ); */
 
     final response = await ApiObserver.withFuture(api: () => _apiService.login(username, password));
+
     if (response.isSuccessful) {
       _loginSuccess(response.data);
     } else {

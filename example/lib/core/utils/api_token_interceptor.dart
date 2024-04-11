@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:example/env/env.dart';
 import 'package:flutter_core/core.dart';
 import 'package:flutter_core/data/core_session.dart';
-import 'package:example/core/config/config.dart';
 import 'package:example/core/data/model/auth/auth.dart';
 
 class ApiTokenInterceptor extends QueuedInterceptorsWrapper {
@@ -21,7 +21,7 @@ class ApiTokenInterceptor extends QueuedInterceptorsWrapper {
       try {
         final authResponse = await Dio(
           BaseOptions(
-            baseUrl: Config.baseUrl,
+            baseUrl: Env.baseUrl,
             headers: { 'Authorization': 'Basic $_initialToken' }
           )
         ).post('/auth');

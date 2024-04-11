@@ -1,6 +1,6 @@
+import 'package:example/env/env.dart';
 import 'package:flutter_core/core.dart';
 import 'package:flutter_core/data/core_session.dart';
-import 'package:example/core/config/config.dart';
 import 'package:example/core/data/source/api/api_service.dart';
 import 'package:example/core/data/source/local/app_database.dart';
 import 'package:example/core/utils/api_token_interceptor.dart';
@@ -13,10 +13,10 @@ class AppModule {
     Get.lazyPut(() {
       final dio = Dio(
         BaseOptions(
-          baseUrl: Config.baseUrl,
-          sendTimeout: Config.networkTimeout,
-          connectTimeout: Config.networkTimeout,
-          receiveTimeout: Config.networkTimeout
+          baseUrl: Env.baseUrl,
+          sendTimeout: Env.networkTimeout,
+          connectTimeout: Env.networkTimeout,
+          receiveTimeout: Env.networkTimeout
         )
       );
       dio.interceptors.add(ApiTokenInterceptor());
