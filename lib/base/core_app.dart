@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/core.dart';
 
-abstract class CoreApp2 extends StatelessWidget {
-  const CoreApp2({super.key});
+abstract class CoreApp extends StatelessWidget {
+  const CoreApp({super.key});
 
   @override
   Widget build(BuildContext context) {
